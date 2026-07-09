@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 The public "presence" website for the **Bella Purpose Research Group**: a static
-site presenting the group, its members, initiatives, and papers. It is
+site presenting the group, its members, initiatives, research, and news. It is
 intentionally dependency-free — plain HTML + one CSS file, **no build step, no
 framework, no package manager**. There is nothing to compile, lint, or test.
 
@@ -30,10 +30,23 @@ config stay at the repo root. Six sibling pages under `site/`
 are copy-pasted into all six pages** — when editing either, apply the change to
 every page. The active nav link is marked per page with `aria-current="page"`.
 
-`contact.html` has a Web3Forms-backed contact form: the group's email is **never**
-in the repo (it lives on Web3Forms, keyed by `access_key`). Members are listed as
-equal cards (no roles/coordinator — governance is intentionally flat). `news.html`
-uses the `.paper` list style for dated items, newest first.
+Page-specific notes:
+- `contact.html` has a Web3Forms-backed contact form — the group's email is **never**
+  in the repo (it lives on Web3Forms, keyed by `access_key`).
+- `members.html` lists members as **equal cards** (no roles/coordinator — governance
+  is intentionally flat); each name links to that member's official institutional
+  profile. A "Where our members come from" section lists home institutes — link a
+  dedicated institute only where it's purpose-relevant, else just the university.
+- `research.html` is three stacked sections: **Themes**, **Publications** (empty for
+  now), **Resources**.
+- `news.html` uses the `.paper` list style for dated items, newest first.
+
+**Thumbnails.** Optimized web images live in `site/images/` (JPEG). To give a card or
+news item a thumbnail, add `has-thumb` to the `.card`/`.paper` and an
+`<img class="thumb" src="images/….jpg" alt="…">` as its first child; CSS lays it out
+as a small image beside the text (two-column grid on desktop, stacked on mobile).
+Keep thumbnails a **uniform 3:2** — process originals to 1200×800 with `sips` or PIL.
+Original full-size uploads go in `pics/`, which is **git-ignored** (never published).
 
 `styles.css` is the single source of visual truth. All theming flows from CSS
 custom properties in the `:root` block at the top (`--accent`, `--ink`, fonts,
@@ -46,12 +59,12 @@ rules. Layout uses shared utility classes (`.wrap`, `.section`, `.grid`, `.card`
 
 - All editable content is marked `[PLACEHOLDER]` or an HTML `<!-- comment -->`.
   Grep for `PLACEHOLDER` to find every spot needing real content.
-- Members, initiatives, and papers are each a repeated card/list block — add an
-  entry by duplicating one block and editing its text.
-- The footer (all four pages) holds the contact email and the LinkedIn URL
-  (currently `href="#"`).
-- Member photos: create an `images/` folder and replace the placeholder avatar
-  `<div class="avatar">` with `<img class="avatar" src="..." alt="...">`.
+- Members, initiatives, research, and news are each a repeated card/list block —
+  add an entry by duplicating one block and editing its text.
+- The footer (all six pages) links to the Contact page and the group's LinkedIn
+  (`https://www.linkedin.com/groups/26260068/`).
+- Member photos: drop an image in `site/images/` and replace the placeholder avatar
+  `<div class="avatar">` with `<img class="avatar" src="images/..." alt="...">`.
 
 ## Deployment & git
 
@@ -65,6 +78,11 @@ rules. Layout uses shared utility classes (`.wrap`, `.section`, `.grid`, `.card`
   `site/` subfolder — that's why the workflow exists).
 - **Commit identity:** the shared group account **Bella Purpose Group
   <bellapurposegroup@gmail.com>** — not any individual.
+- **Private material:** emails, member data, and original full-size images live in
+  the git-ignored `docs/` and `pics/` folders — never commit or publish these.
+- **History is periodically squashed** to a single commit (orphan branch +
+  force-push to `main`) before the URL is shared or members are added, so drafts
+  aren't visible in the public repo. Don't be surprised by a rewritten history.
 
 ## Password gate (temporary)
 
@@ -72,7 +90,7 @@ rules. Layout uses shared utility classes (`.wrap`, `.section`, `.grid`, `.card`
 yet" **deterrent, not real security** — files are still downloadable). The
 password is stored as a SHA-256 hash in `PASSWORD_HASH`. Change it via the console
 helper `bpHash('new-pass')`, or remove the gate entirely by deleting the
-`<script src="gate.js"></script>` line from all four pages. Details in `README.md`.
+`<script src="gate.js"></script>` line from all six pages. Details in `README.md`.
 
 ## Accessibility (preserve when editing)
 
