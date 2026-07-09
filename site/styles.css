@@ -1,0 +1,219 @@
+/* ==========================================================================
+   Bella Purpose Research Group — shared stylesheet
+   Plain CSS, no build step. Edit the variables below to re-theme the site.
+   ========================================================================== */
+
+:root {
+  /* Brand palette — tweak these to change the whole site's look */
+  --accent:        #6b3f7a;   /* deep plum — headings, links, buttons */
+  --accent-strong: #4e2b5c;   /* darker plum for hover */
+  --accent-soft:   #f3ecf6;   /* pale plum wash for section backgrounds */
+
+  --ink:           #1d1a20;   /* primary text */
+  --ink-soft:      #55505c;   /* secondary text */
+  --line:          #e4dfe8;   /* borders / dividers */
+  --bg:            #ffffff;   /* page background */
+  --bg-alt:        #faf8fb;   /* alternate section background */
+  --card:          #ffffff;   /* card surface */
+
+  --maxw: 68rem;              /* content max width */
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(29, 26, 32, .04), 0 8px 24px rgba(29, 26, 32, .06);
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --sans:  system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent:        #c9a8d6;
+    --accent-strong: #ddc4e6;
+    --accent-soft:   #241b29;
+    --ink:           #ece8ef;
+    --ink-soft:      #b3acbc;
+    --line:          #362e3d;
+    --bg:            #141116;
+    --bg-alt:        #1a161d;
+    --card:          #1d181f;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .4);
+  }
+}
+
+/* ---------- base ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: var(--serif); line-height: 1.2; color: var(--ink); }
+h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0 0 .5rem; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin: 0 0 1rem; }
+h3 { font-size: 1.2rem; margin: 0 0 .35rem; }
+
+p { margin: 0 0 1rem; color: var(--ink-soft); }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-strong); text-decoration: underline; }
+
+img { max-width: 100%; display: block; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 1.25rem; }
+
+/* Skip link for keyboard/screen-reader users */
+.skip {
+  position: absolute; left: -999px; top: 0;
+  background: var(--accent); color: #fff; padding: .6rem 1rem; border-radius: 0 0 8px 0;
+  z-index: 100;
+}
+.skip:focus { left: 0; }
+
+/* ---------- header / nav ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: saturate(150%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: .85rem 1.25rem; max-width: var(--maxw); margin: 0 auto;
+}
+.brand { display: flex; align-items: center; gap: .6rem; font-family: var(--serif); font-weight: 600; font-size: 1.1rem; color: var(--ink); }
+.brand:hover { text-decoration: none; }
+.brand .mark {
+  width: 30px; height: 30px; border-radius: 8px; flex: 0 0 auto;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  display: grid; place-items: center; color: #fff; font-weight: 700; font-size: .95rem;
+}
+.nav ul { list-style: none; display: flex; gap: .35rem; margin: 0; padding: 0; flex-wrap: wrap; }
+.nav a {
+  color: var(--ink-soft); padding: .4rem .7rem; border-radius: 8px; font-size: .95rem; font-weight: 500;
+}
+.nav a:hover { color: var(--ink); background: var(--accent-soft); text-decoration: none; }
+.nav a[aria-current="page"] { color: var(--accent); background: var(--accent-soft); }
+
+/* ---------- hero ---------- */
+.hero { padding: clamp(3rem, 8vw, 6rem) 0 clamp(2rem, 5vw, 4rem); }
+.hero .eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: .8rem; font-weight: 700; color: var(--accent); margin-bottom: .75rem; }
+.hero .lead { font-size: clamp(1.05rem, 2vw, 1.25rem); color: var(--ink-soft); max-width: 40rem; }
+
+.btn {
+  display: inline-block; margin-top: .5rem; margin-right: .5rem;
+  background: var(--accent); color: #fff; padding: .7rem 1.3rem; border-radius: 999px;
+  font-weight: 600; font-size: .95rem;
+}
+.btn:hover { background: var(--accent-strong); color: #fff; text-decoration: none; }
+.btn.secondary { background: transparent; color: var(--accent); border: 1.5px solid var(--line); }
+.btn.secondary:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+/* ---------- generic section ---------- */
+.section { padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
+.section.alt { background: var(--bg-alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.section-head { max-width: 42rem; margin-bottom: 2rem; }
+.section-head p { font-size: 1.05rem; }
+
+/* ---------- cards grid ---------- */
+.grid { display: grid; gap: 1.25rem; }
+.grid.cols-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+.grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 1.5rem; box-shadow: var(--shadow);
+}
+.card h3 { margin-bottom: .25rem; }
+.card .role { font-size: .85rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: .05em; margin-bottom: .6rem; }
+.card .links { margin-top: .9rem; display: flex; gap: 1rem; flex-wrap: wrap; font-size: .9rem; }
+
+/* member avatar */
+.avatar {
+  width: 72px; height: 72px; border-radius: 50%; margin-bottom: 1rem;
+  object-fit: cover; background: var(--accent-soft);
+  display: grid; place-items: center; color: var(--accent); font-family: var(--serif); font-size: 1.5rem; font-weight: 600;
+  border: 1px solid var(--line);
+}
+.member-links { display: flex; gap: .75rem; margin-top: .75rem; font-size: .9rem; }
+/* linked member name: looks like a heading, turns accent on hover */
+.card h3 a { color: inherit; text-decoration: none; }
+.card h3 a:hover { color: var(--accent); text-decoration: underline; }
+
+/* ---------- papers list ---------- */
+.papers { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.paper {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 1.25rem 1.5rem; box-shadow: var(--shadow);
+}
+.paper h3 { font-family: var(--sans); font-size: 1.05rem; margin-bottom: .3rem; }
+.paper .meta { font-size: .9rem; color: var(--ink-soft); margin-bottom: .5rem; }
+.paper .tag {
+  display: inline-block; font-size: .75rem; font-weight: 600; color: var(--accent);
+  background: var(--accent-soft); padding: .15rem .6rem; border-radius: 999px; margin-bottom: .6rem;
+}
+.paper .links { font-size: .9rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* ---------- partners list ---------- */
+.partners { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.1rem 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); }
+.partners li { font-size: .95rem; line-height: 1.4; }
+.partners .inst { display: block; font-weight: 600; color: var(--ink); }
+.partners .inst a { color: inherit; text-decoration: none; }
+.partners .inst a:hover { color: var(--accent); text-decoration: underline; }
+
+/* ---------- thumbnails (uniform 3:2, small, beside text) ---------- */
+.thumb { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover;
+  border-radius: 8px; background: var(--accent-soft); }
+/* image + text as two columns so all text (incl. links) shares one left edge */
+.card.has-thumb, .paper.has-thumb { display: grid; grid-template-columns: min(40%, 200px) 1fr; column-gap: 1.1rem; }
+.has-thumb .thumb { grid-column: 1; grid-row: 1 / span 20; align-self: start; margin-top: .15rem; }
+.has-thumb > :not(.thumb) { grid-column: 2; }
+.has-thumb .tag, .has-thumb .role { justify-self: start; } /* keep pill/label at content width, not stretched */
+@media (max-width: 520px) {
+  .card.has-thumb, .paper.has-thumb { grid-template-columns: 1fr; }
+  .has-thumb .thumb { grid-row: auto; }
+  .has-thumb > :not(.thumb) { grid-column: 1; }
+}
+
+/* ---------- callout / placeholder note ---------- */
+.note {
+  border-left: 3px solid var(--accent); background: var(--accent-soft);
+  padding: .75rem 1rem; border-radius: 0 8px 8px 0; font-size: .9rem; color: var(--ink-soft);
+  margin: 1.5rem 0;
+}
+.note strong { color: var(--ink); }
+
+/* ---------- footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--line); background: var(--bg-alt);
+  padding: 2.5rem 0; margin-top: 2rem; font-size: .9rem; color: var(--ink-soft);
+}
+.footer-inner { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center; justify-content: space-between; }
+.social { display: flex; gap: .75rem; align-items: center; }
+.social a { display: inline-flex; align-items: center; gap: .4rem; }
+.social svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* ---------- contact form ---------- */
+.contact-form { max-width: 34rem; }
+.field { margin-bottom: 1.1rem; }
+.field label { display: block; font-weight: 600; font-size: .9rem; margin-bottom: .35rem; color: var(--ink); }
+.field input, .field textarea {
+  width: 100%; padding: .7rem .85rem; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--card); color: var(--ink); font: inherit; box-sizing: border-box;
+}
+.field input:focus, .field textarea:focus {
+  outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.field textarea { min-height: 9rem; resize: vertical; }
+.hp { position: absolute; left: -9999px; }            /* spam honeypot — hidden */
+.form-status { margin-top: 1rem; font-size: .95rem; min-height: 1.3em; }
+.form-status.ok  { color: #2e7d5b; }
+.form-status.err { color: #c0392b; }
+@media (prefers-color-scheme: dark) {
+  .form-status.ok  { color: #7fd1a8; }
+  .form-status.err { color: #e59a9a; }
+}

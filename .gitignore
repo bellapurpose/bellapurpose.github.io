@@ -1,0 +1,9 @@
+.DS_Store
+*.log
+
+# Private source material — emails, member lists, event docs, scraped pages.
+# NEVER commit these to the public repo.
+docs/
+
+# Original full-size images (optimized copies live in site/images/)
+pics/

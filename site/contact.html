@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Bella Purpose Research Group</title>
+  <meta name="description" content="Get in touch with the Bella Purpose Research Group.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="gate.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="index.html"><span class="mark">BP</span> Bella Purpose Research Group</a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="members.html">Members</a></li>
+        <li><a href="initiatives.html">Initiatives</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <h1>Contact</h1>
+          <p>Questions about the group, our events, or getting involved? Send us a
+          message and we'll get back to you.</p>
+        </div>
+
+        <!-- ============================================================
+             CONTACT FORM — powered by Web3Forms (https://web3forms.com)
+             CONNECTED: the access_key below routes submissions to the group's
+             Gmail via Web3Forms. The email address itself is intentionally kept
+             out of the site — do NOT add it here. (Access keys are meant to be
+             public; the destination address stays hidden on Web3Forms' server.)
+             To change the destination, generate a new key at web3forms.com and
+             replace the access_key value below.
+             ============================================================ -->
+        <form id="contact-form" class="contact-form"
+              action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="fa44dccd-67c5-42ac-8af5-5ac042f37eed">
+          <input type="hidden" name="subject" value="New message from the Bella Purpose website">
+          <input type="hidden" name="from_name" value="Bella Purpose website">
+
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" type="text" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="email">Your email</label>
+            <input id="email" name="email" type="email" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+
+          <!-- honeypot: hidden from people, catches bots -->
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <button class="btn" type="submit">Send message</button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <strong>The Bella Purpose Research Group</strong><br>
+        An international research network · <a href="contact.html">Contact us</a>
+      </div>
+      <div class="social">
+        <a href="https://www.linkedin.com/groups/26260068/" target="_blank" rel="noopener" aria-label="Bella Purpose on LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.76-2.05C20.4 8.65 22 10.9 22 14.6V21h-4v-5.7c0-1.36-.02-3.1-1.9-3.1-1.9 0-2.2 1.48-2.2 3v5.8H9z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var form = document.getElementById("contact-form");
+    var status = document.getElementById("form-status");
+    var keyField = form.querySelector('[name="access_key"]');
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      // Guard: form not yet connected to a Web3Forms key.
+      if (keyField.value.indexOf("YOUR_") === 0) {
+        status.className = "form-status err";
+        status.textContent = "The form isn’t connected yet — add the Web3Forms access key (see README).";
+        return;
+      }
+      status.className = "form-status";
+      status.textContent = "Sending…";
+      fetch(form.action, {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: new FormData(form)
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.success) {
+          form.reset();
+          status.className = "form-status ok";
+          status.textContent = "Thanks — your message has been sent.";
+        } else {
+          status.className = "form-status err";
+          status.textContent = data.message || "Something went wrong. Please try again.";
+        }
+      })
+      .catch(function () {
+        status.className = "form-status err";
+        status.textContent = "Network error. Please try again.";
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
