@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact — Bella Purpose Research Group</title>
+  <title>Contact | Bella Purpose Research Group</title>
   <meta name="description" content="Get in touch with the Bella Purpose Research Group.">
   <link rel="stylesheet" href="styles.css">
   <script src="gate.js"></script>
@@ -98,7 +98,7 @@
       // Guard: form not yet connected to a Web3Forms key.
       if (keyField.value.indexOf("YOUR_") === 0) {
         status.className = "form-status err";
-        status.textContent = "The form isn’t connected yet — add the Web3Forms access key (see README).";
+        status.textContent = "The form isn’t connected yet. Add the Web3Forms access key (see README).";
         return;
       }
       status.className = "form-status";
@@ -113,7 +113,7 @@
         if (data.success) {
           form.reset();
           status.className = "form-status ok";
-          status.textContent = "Thanks — your message has been sent.";
+          status.textContent = "Thanks, your message has been sent.";
         } else {
           status.className = "form-status err";
           status.textContent = data.message || "Something went wrong. Please try again.";
