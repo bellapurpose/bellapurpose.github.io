@@ -17,7 +17,6 @@ to a host. The docs (`README.md`, `CLAUDE.md`) stay at the repo root.
 | `site/news.html` | News, events & calls for papers (one item each) |
 | `site/contact.html` | Contact page + form |
 | `site/styles.css` | Shared styling for every page |
-| `site/gate.js` | Temporary password gate |
 | `site/images/` | (create this) put member photos / logo here |
 
 ## How to edit the content
@@ -124,22 +123,6 @@ option can only serve from the repo root or `/docs`, so the workflow handles the
 2. In your host's dashboard, add the domain and follow its DNS instructions
    (usually a `CNAME` or `A` record).
 3. HTTPS is issued automatically by all the hosts above.
-
-## Password gate (temporary)
-
-The pages currently load `site/gate.js`, which shows a password prompt.
-
-- **Current password:** `25`
-- **Change it:** open a page, open the browser console (F12), run
-  `bpHash('your-new-password')`, and paste the printed hash into `PASSWORD_HASH`
-  at the top of `site/gate.js`.
-- **Remove it (make the site public):** delete the `<script src="gate.js"></script>`
-  line from the `<head>` of all four HTML pages.
-
-⚠️ This is a *deterrent, not real security* — the files are still downloadable and
-the gate can be bypassed. For genuine access control use host-level protection
-(Cloudflare Access is free for up to 50 users; Netlify has password protection on
-paid plans).
 
 ## LinkedIn page
 

@@ -84,14 +84,6 @@ rules. Layout uses shared utility classes (`.wrap`, `.section`, `.grid`, `.card`
   force-push to `main`) before the URL is shared or members are added, so drafts
   aren't visible in the public repo. Don't be surprised by a rewritten history.
 
-## Password gate (temporary)
-
-`site/gate.js` is loaded by every page and shows a password prompt (a "not ready
-yet" **deterrent, not real security** — files are still downloadable). The
-password is stored as a SHA-256 hash in `PASSWORD_HASH`. Change it via the console
-helper `bpHash('new-pass')`, or remove the gate entirely by deleting the
-`<script src="gate.js"></script>` line from all six pages. Details in `README.md`.
-
 ## Accessibility (preserve when editing)
 
 Each page has a skip link, semantic landmarks (`<header>`/`<main>`/`<footer>`),
